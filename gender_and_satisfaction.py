@@ -1,6 +1,7 @@
 import csv
 
 input_file = 'dataset_clean.csv'
+output_file = 'gender_and_satisfaction.csv'
 
 male_count = 0
 female_count = 0
@@ -22,17 +23,6 @@ with open(input_file, newline='') as file:
         else:
             nonbinary_count += 1
 total_responded_gender = male_count + female_count + transgender_count + nonbinary_count
-
-# print("Amount of people responded")
-# print(total_responded_gender)
-# print("Male percentage")
-# print(male_count/total_responded_gender)
-# print("Female percentage")
-# print(female_count/total_responded_gender)
-# print("Transgender percentage")
-# print(transgender_count/total_responded_gender)
-# print("Nonbinary percentage")
-# print(nonbinary_count/total_responded_gender)
 
 satisfied_male_count = 0
 satisfied_female_count = 0
@@ -76,31 +66,17 @@ with open(input_file, newline='') as file:
             nonbinary_NA_count += 1
 total_gender_satisfaction = satisfied_male_count + satisfied_female_count + satisfied_transgender_count + satisfied_nonbinary_count + dissatisfied_male_count + dissatisfied_female_count + dissatisfied_transgender_count + dissatisfied_nonbinary_count
 
-# print("Amount of sample")
-# print(total_gender_satisfaction)
-print("Satisfied males")
-print(satisfied_male_count/male_count)
-print("Satisfied females")
-print(satisfied_female_count/female_count)
-print("Satisfied transgenders")
-print(satisfied_transgender_count/transgender_count)
-print("Satisfied nonbinary, genderqueer, or gender non-conforming")
-print(satisfied_nonbinary_count/nonbinary_count)
-print("-----------------------------------------------------------------------")
-print("Dissatisfied males")
-print(dissatisfied_male_count/male_count)
-print("Dissatisfied females")
-print(dissatisfied_female_count/female_count)
-print("Dissatisfied transgenders")
-print(dissatisfied_transgender_count/transgender_count)
-print("Dissatisfied nonbinary, genderqueer, or gender non-conforming")
-print(dissatisfied_nonbinary_count/nonbinary_count)
-print("-----------------------------------------------------------------------")
-print("NA males")
-print(male_NA_count/male_count)
-print("NA females")
-print(female_NA_count/female_count)
-print("NA transgenders")
-print(transgender_NA_count/transgender_count)
-print("NA nonbinary, genderqueer, or gender non-conforming")
-print(nonbinary_NA_count/nonbinary_count)
+with open(output_file, "w", newline='') as file:
+	writer = csv.writer(file)
+	writer.writerow(["", "Amount Satisfied", "Amount Dissatisfied", "Amount Neither Nor", "Amount NA"])
+	writer.writerow(["Male", satisfied_male_count, dissatisfied_male_count, male_count - satisfied_male_count - dissatisfied_male_count - male_NA_count, male_NA_count])
+	writer.writerow(["Female", satisfied_female_count, dissatisfied_female_count, female_count - satisfied_female_count - dissatisfied_female_count - female_NA_count, female_NA_count])
+	writer.writerow(["Transgender", satisfied_transgender_count, dissatisfied_transgender_count, transgender_count - satisfied_transgender_count - dissatisfied_transgender_count - transgender_NA_count, transgender_NA_count])
+	writer.writerow(["Non-binary, genderqueer or gender non-conforming", satisfied_nonbinary_count, dissatisfied_nonbinary_count, nonbinary_count - satisfied_nonbinary_count - dissatisfied_nonbinary_count - nonbinary_NA_count, nonbinary_NA_count])
+	writer.writerow(["", "", "", "", ""])
+	writer.writerow(["", "Percentage Satisfied", "Percentage Dissatisfied", "Percentage Neither Nor", "Percentage NA"])
+	writer.writerow(["Male", satisfied_male_count/male_count, dissatisfied_male_count/male_count, (male_count - satisfied_male_count - dissatisfied_male_count - male_NA_count)/male_count, male_NA_count/male_count])
+	writer.writerow(["Female", satisfied_female_count/female_count, dissatisfied_female_count/female_count, (female_count - satisfied_female_count - dissatisfied_female_count - female_NA_count)/female_count, female_NA_count/female_count])
+	writer.writerow(["Transgender", satisfied_transgender_count/transgender_count, dissatisfied_transgender_count/transgender_count, (transgender_count - satisfied_transgender_count - dissatisfied_transgender_count - transgender_NA_count)/transgender_count, transgender_NA_count/transgender_count])
+	writer.writerow(["Non-binary, genderqueer or gender non-conforming", satisfied_nonbinary_count/nonbinary_count, dissatisfied_nonbinary_count/nonbinary_count, (nonbinary_count - satisfied_nonbinary_count - dissatisfied_nonbinary_count - nonbinary_NA_count)/nonbinary_count, nonbinary_NA_count/nonbinary_count])
+	writer.writerow(["", "", "", "", ""])
