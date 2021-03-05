@@ -1,24 +1,45 @@
 import csv
+import numpy as np
+from sklearn.linear_model import LinearRegression
 
-with open ('/home/danali/Downloads/dataset.csv', 'r') as csv_file:
+#class country:
+#def __init__(self, namecountry, name, mcount, fcount, nacount, totalcount, ppp):
+#	self.name 
+#	self.mcount = name #male and female counted
+#	self.fcount = fcount
+#	self.nacount = nacount
+#	self.totalcount = totalcount
+#	self.ppp = ppp
+
+def get_age(agestr):
+	if agestr == '18 - 24 years old':
+		return 1
+	if agestr == '25 - 34 years old':
+		return 2
+	if agestr == '35 - 44 years old':
+		return 3
+	if agestr == '45 - 54 years old':
+		return 4
+	if agestr == '55 - 64 years old':
+		return 5
+	if agestr == '65 years or older':
+		return 6
+#___________________________________________
+
+
+with open ('ppp.csv', 'r') as csv_file:
 	reader = csv.reader(csv_file, delimiter=",")
-	#row = list(reader)
-	header = next(reader)
-	#print(header)
-
-	us_count = 0
-	male_count = 0
-	female_count = 0
 	
+	i = 0
+	xfem = np.empty(10000)
+	yfem = np.empty(10000)
 	for row in reader:
-		if row[3] == 'United States':
-			print(row[56])
-			us_count += 1
-			if row[56] == 'Female':
-				female_count += 1
-			elif row[56] == 'Male':
-				male_count += 1
-print(us_count)
-print("number of female employees in the US:", female_count)
-print("number of male employees in the US:", male_count)
-	
+		if row[11] == 'Female' and row[15] != 'NA' and row[15] != 'Under 18 years old':
+			yfem.fill(row[17])
+			xfem.fill(get_age(row[15]))
+			#print(xfem[i], yfem[i])
+			i += 1
+	xfem = xfem.reshape((-1, 1))
+	model = LinearRegression().fit(xfem, yfem)
+	print(model.intercept_)
+	print(model.coef_)
