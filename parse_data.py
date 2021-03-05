@@ -50,7 +50,10 @@ def get_exp(expstr):
 	else:
 		return 0
 
-def outlier(salary):
+def filter(salary, edu, country):
+	#if edu == "Bachelor's degree (BA, BS, B.Eng., etc." and country == 'United States':
+	#if country == 'United States':
+		#return 0
 	if salary < '10' and salary > '0':
 		return 0
 	else:
@@ -68,22 +71,33 @@ with open ('ppp.csv', 'r') as csv_file:
 
 
 	for row in reader:
-		if row[11] == 'Female' and row[6] != 'NA' and row[6] != '30 or more years' and row[17] != 'NA' and outlier(row[17]) == 0:
+		if row[11] == 'Female' and row[6] != 'NA' and row[6] != '30 or more years' and row[17] != 'NA' and filter(row[17], row[3], row[1]) == 0:
 			yfem[i] = row[17]
 			xfem[i] = get_exp(row[6])
-			print(xfem[i])
-		if row[11] == 'Male' and row[6] != 'NA' and row[6] != '30 or more years':
-			xman = row[17]
-			yman = get_exp(row[6])
+			#print(
+		if row[11] == 'Male' and row[6] != 'NA' and row[6] != '30 or more years' and row[17] != 'NA' and filter(row[17], row[3], row[1]) == 0:
+			yman[i] = row[17]
+			xman[i] = get_exp(row[6])
+		#print(row[3])
 		i += 1
-
-	#print(xfem[41])
-	plt.scatter(xfem, yfem)
-	plt.show()
-	#plt.scatter(xman, yman)
-	#plt.show()
-
 	xfem = xfem.reshape((-1, 1))
-	model = LinearRegression().fit(xfem, yfem)
-	print(model.intercept_)
-	print(model.coef_)
+	xman = xman.reshape((-1, 1))
+	print(np.amax(yman))
+	modelfem = LinearRegression().fit(xfem, yfem)
+	modelman = LinearRegression().fit(xman, yman)
+
+	fig = plt.figure()
+	ax1 = fig.add_subplot(121)
+	ax2 = fig.add_subplot(122)
+	ax1.scatter(xfem,yfem, alpha=0.14)
+	ax2.scatter(xman,yman, alpha=0.14)
+	ax1.set_title('female')
+	ax1.set_xlabel('x')
+	ax1.set_ylabel('y')
+	ax2.set_title('male')
+	ax2.set_xlabel('x')
+	ax2.set_ylabel('y')
+	plt.show()	
+
+	print(modelfem.intercept_, modelman.intercept_)
+	print(modelfem.coef_, modelman.coef_)
