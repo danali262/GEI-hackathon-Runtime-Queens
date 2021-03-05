@@ -57,3 +57,40 @@ print("Full-time employment percentage")
 print(employed_fulltime_count/total_responded_employment)
 print("Part-time percentage")
 print(employed_parttime_count/total_responded_employment)
+
+hetero_count = 0
+bisexual_count = 0
+gaylesbian_count = 0
+asexual_count = 0
+morethanone_count = 0
+NA_count_sexuality = 0
+
+with open(input_file, newline='') as file:
+    reader = csv.reader(file, delimiter=',')
+    for row in reader:
+        if row[12] == 'Straight or heterosexual':
+            hetero_count += 1
+        elif row[12] == 'NA':
+            NA_count_sexuality += 1
+        elif row[12] == 'Bisexual or Queer':
+            bisexual_count += 1
+        elif row[12] == 'Gay or Lesbian':
+            gaylesbian_count += 1
+        elif row[12] == 'Asexual':
+            asexual_count += 1
+        else:
+            morethanone_count += 1
+total_responded_sexuality = hetero_count + bisexual_count + gaylesbian_count + asexual_count + morethanone_count
+
+print("Amount of people responded")
+print(total_responded_sexuality)
+print("Straight or heterosexual percentage")
+print(hetero_count/total_responded_sexuality)
+print("Bisexual or Queer percentage")
+print(bisexual_count/total_responded_sexuality)
+print("Gay or Lesbian percentage")
+print(gaylesbian_count/total_responded_sexuality)
+print("Asexual percentage")
+print(asexual_count/total_responded_sexuality)
+print("Percentage of people with more than one sexualities")
+print(morethanone_count/total_responded_sexuality)
