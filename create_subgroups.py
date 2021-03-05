@@ -23,6 +23,7 @@ with open(input_file, newline='') as file:
             nonbinary_count += 1
 total = male_count + female_count + transgender_count + nonbinary_count
 
+print("Amount of people responded")
 print(total)
 print("Male percentage")
 print(male_count/total)
