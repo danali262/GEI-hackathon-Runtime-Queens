@@ -1,6 +1,6 @@
 import csv
 
-with open ('/home/himak/Downloads/dataset.csv', 'r') as csv_file:
+with open ('/home/danali/Downloads/dataset.csv', 'r') as csv_file:
 	reader = csv.reader(csv_file, delimiter=",")
 	#row = list(reader)
 	header = next(reader)
