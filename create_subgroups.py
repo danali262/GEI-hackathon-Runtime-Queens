@@ -94,3 +94,50 @@ print("Asexual percentage")
 print(asexual_count/total_responded_sexuality)
 print("Percentage of people with more than one sexualities")
 print(morethanone_count/total_responded_sexuality)
+
+extremely_satisfied_count = 0
+moderately_satisfied_count = 0
+slightly_satisfied_count = 0
+neither_satisfied_nor_dissatisfied_count = 0
+slightly_dissatisfied_count = 0
+moderately_dissatisfied_count = 0
+extremely_dissatisfied_count = 0
+NA_count_satisfaction = 0
+
+with open(input_file, newline='') as file:
+    reader = csv.reader(file, delimiter=',')
+    for row in reader:
+        if row[7] == 'Extremely satisfied':
+            extremely_satisfied_count += 1
+        if row[7] == 'Moderately satisfied':
+            moderately_satisfied_count += 1
+        if row[7] == 'Slightly satisfied':
+            slightly_satisfied_count += 1
+        if row[7] == 'Neither satisfied nor dissatisfied':
+            neither_satisfied_nor_dissatisfied_count += 1
+        if row[7] == 'Slightly dissatisfied':
+            slightly_dissatisfied_count += 1
+        elif row[7] == 'Moderately dissatisfied':
+            moderately_dissatisfied_count += 1
+        elif row[7] == 'Extremely dissatisfied':
+            extremely_dissatisfied_count += 1
+        else:
+            NA_count_satisfaction += 1
+total_responded_satisfaction = extremely_dissatisfied_count + extremely_satisfied_count + moderately_dissatisfied_count + moderately_satisfied_count + slightly_dissatisfied_count + slightly_satisfied_count + neither_satisfied_nor_dissatisfied_count
+
+print("Amount of people responded")
+print(total_responded_satisfaction)
+print("Extremely satisfied percentage")
+print(extremely_satisfied_count/total_responded_satisfaction)
+print("Moderately satisfied percentage")
+print(moderately_satisfied_count/total_responded_satisfaction)
+print("Slightly satisfied percentage")
+print(slightly_satisfied_count/total_responded_satisfaction)
+print("Neither satisfied nor dissatisfied percentage")
+print(neither_satisfied_nor_dissatisfied_count/total_responded_satisfaction)
+print("Slightly dissatisfied percentage")
+print(slightly_dissatisfied_count/total_responded_satisfaction)
+print("Moderately dissatisfied percentage")
+print(moderately_dissatisfied_count/total_responded_satisfaction)
+print("Extremely dissatisfied percentage")
+print(extremely_dissatisfied_count/total_responded_satisfaction)
