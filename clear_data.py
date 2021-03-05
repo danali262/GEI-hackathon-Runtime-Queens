@@ -7,18 +7,15 @@ cols_to_remove = [1, 2, 4, 7, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
 cols_to_remove = sorted(cols_to_remove, reverse=True)   #reverse so we remove from end first
 row_count = 0 #current amount of rows processed
 
-
 with open (input_file, "r") as csv_file:
 	reader = csv.reader(csv_file, delimiter=",")
-    with open(output_file, "w", newline='') as result:
-        writer = csv.writer(result, delimiter=",")
-        for row in header:
-                row_count += 1
-                print('\r{0}'.format(row_count), end='') #print rows processed
-                for col_index in cols_to_remove:
-                    del row[col_index]
-                writer.writerow(row)
-	
-# print(us_count)
-# print(female_count)
+	with open(output_file, "w", newline='') as result:
+		writer = csv.writer(result, delimiter=",")
+		for row in reader:
+			row_count += 1
+			print('\r{0}'.format(row_count), end='') #print rows processed
+			for col_index in cols_to_remove:
+				del row[col_index]
+			writer.writerow(row)
+
 	
